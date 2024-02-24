@@ -1,5 +1,6 @@
 package com.codingchallenge.projectcodingchallenge.Controller;
 
+import com.codingchallenge.projectcodingchallenge.Exceptions.ContactException;
 import com.codingchallenge.projectcodingchallenge.Model.Contact;
 import com.codingchallenge.projectcodingchallenge.Service.ContactService;
 import org.springframework.http.HttpStatus;
@@ -44,5 +45,34 @@ public class ContactController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdContact);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Contact> updateContact(@PathVariable String id, @RequestBody Contact updatedContact){
+        try {
+            Contact updated = contactService.updateContact(id, updatedContact);
+            return ResponseEntity.ok(updated);
+        } catch (ContactException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteContact(@PathVariable String id) {
+        try {
+            contactService.deleteContact(id);
+            return ResponseEntity.ok("Successfully deleted contact!");
+        } catch (ContactException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Contact>> searchContactByName(@RequestParam String name){
+        List<Contact> contacts = contactService.searchContactsByName(name);
+        if(contacts.isEmpty()){
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(contacts);
+        }
+    }
 
 }
