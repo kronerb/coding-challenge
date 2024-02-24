@@ -16,6 +16,7 @@ public class Contact {
     private String zipCode;
     private String city;
     private String phoneNumber;
+    private String emailAddress;
 
     public String getFirstName() {
         return firstName;
@@ -73,9 +74,12 @@ public class Contact {
         this.emailAddress = emailAddress;
     }
 
-    private String emailAddress;
+    public void setId(String id) {
+        this.id = id;
+    }
 
 
-
-
+    public String getId() {
+        return id;
+    }
 }

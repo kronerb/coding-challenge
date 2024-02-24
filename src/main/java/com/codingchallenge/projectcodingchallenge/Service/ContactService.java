@@ -42,6 +42,7 @@ public class ContactService {
                 existingContact.setZipCode(updatedContact.getZipCode());
                 existingContact.setCity(updatedContact.getCity());
                 existingContact.setPhoneNumber(updatedContact.getPhoneNumber());
+                existingContact.setEmailAddress(updatedContact.getEmailAddress());
                 return contactRepository.save(existingContact);
             } else {
                 throw new ContactException("Contact not found!");
