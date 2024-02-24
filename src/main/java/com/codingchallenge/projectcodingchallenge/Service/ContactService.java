@@ -24,4 +24,8 @@ public class ContactService {
     public List<Contact> getAllContacts() {
         return contactRepository.findAll();
     }
+
+    public Contact createContact(Contact newContact){
+        return contactRepository.save(newContact);
+    }
 }
